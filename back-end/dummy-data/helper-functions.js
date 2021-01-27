@@ -5,4 +5,6 @@ const randomDateGenerator = (start, end, startHr, endHr) => {
     return date;
 };
 
-module.exports = randomDateGenerator;
+const dateSort = (a, b) => new Date(a.bookingTime).getTime() > new Date(b.bookingTime).getTime() ? 1 : -1;
+
+module.exports = {randomDateGenerator, dateSort};
