@@ -45,17 +45,23 @@ const BookingsTable = () => {
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                      { tableBookingsData.length? tableBookingsData.map((row) => (
-                          <TableRow key={row.name}>
+                      { tableBookingsData.length? tableBookingsData.map((row) => {
+                          let rowTextColor = 'black';
+                          if(row.numberOfDiners > 6){
+                              rowTextColor = 'red';
+                          } else if(row.numberOfDiners === 1) {
+                              rowTextColor = 'blue';
+                          }
+                          return <TableRow key={row.name}>
                               <TableCell component="th" scope="row">
                                   {row.contactName}
                               </TableCell>
-                              <TableCell align="right">{row.contactNumber}</TableCell>
-                              <TableCell align="right">{row.numberOfDiners}</TableCell>
-                              <TableCell align="right">{row.tableNumber}</TableCell>
-                              <TableCell align="right">{row.bookingTime}</TableCell>
-                          </TableRow>
-                      )): null}
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.contactNumber}</TableCell>
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.numberOfDiners}</TableCell>
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.tableNumber}</TableCell>
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.bookingTime}</TableCell>
+                          </TableRow>;
+                      }): null}
                   </TableBody>
               </Table>
           </TableContainer>
