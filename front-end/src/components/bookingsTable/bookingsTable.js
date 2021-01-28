@@ -18,7 +18,9 @@ const BookingsTable = () => {
     useEffect(() => {
        axios.get('http://localhost:3001/booking').then((response) => {
            console.log('data returned is: ', response);
-          setTableBookingsData(response);
+          if(response.status === 200) {
+              setTableBookingsData(response.data.bookings);
+          }
        });
     });
 
@@ -43,7 +45,7 @@ const BookingsTable = () => {
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                      {tableBookingsData.map((row) => (
+                      { tableBookingsData.length? tableBookingsData.map((row) => (
                           <TableRow key={row.name}>
                               <TableCell component="th" scope="row">
                                   {row.contactName}
@@ -53,7 +55,7 @@ const BookingsTable = () => {
                               <TableCell align="right">{row.tableNumber}</TableCell>
                               <TableCell align="right">{row.bookingTime}</TableCell>
                           </TableRow>
-                      ))}
+                      )): null}
                   </TableBody>
               </Table>
           </TableContainer>
