@@ -1,9 +1,9 @@
-import {useState, Fragment} from 'react';
+import {useState, Fragment, useEffect} from 'react';
 import {Paper, Button} from '@material-ui/core';
-import './createBookingsTable.css';
+import './editBookingsTable.css';
 import axios from "axios";
 
-const CreateBookingsTable = (props) => {
+const EditBookingsTable = (props) => {
     const [contactName, setContactName] = useState('');
     const [contactNumber, setContactNumber] = useState('');
     const [numberOfDiners, setNumberOfDiners] = useState('');
@@ -12,13 +12,22 @@ const CreateBookingsTable = (props) => {
 
     const onCancelButtonClick = () => props.history.push('/');
 
+    useEffect(()=>{
+        console.log('edit bookings props: ', props);
+        setContactName(props.location.state.contactName || '');
+        setContactNumber(props.location.state.contactNumber || '');
+        setNumberOfDiners(props.location.state.numberOfDiners || '');
+        setTableNumber(props.location.state.tableNumber || '');
+        setBookingTime(props.location.state.bookingTime || '');
+    }, [])
+
     const onFormSubmit = e => {
         e.preventDefault();
         if(!contactName || !contactNumber || !numberOfDiners || !tableNumber || !bookingTime) {
             console.log('incomplete form');
             return;
         }
-        axios.post('http://localhost:3001/create-booking', {contactNumber, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
+        axios.post('http://localhost:3001/update-booking', {contactNumber, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
             setNumberOfDiners('');
@@ -73,4 +82,4 @@ const CreateBookingsTable = (props) => {
     );
 };
 
-export default CreateBookingsTable;
+export default EditBookingsTable;

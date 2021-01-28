@@ -27,6 +27,13 @@ const BookingsTable = (props) => {
 
     const buttonClickHandler = () => props.history.push('/create-booking');
 
+    const rowClickHandler = (contactDetails) => {
+        props.history.push({
+            pathname: '/edit-booking',
+            state: contactDetails
+        });
+    };
+
     return(
       <div className={'rootContainer'}>
           <Button variant={'contained'} color={'primary'} onClick={buttonClickHandler} >
@@ -51,7 +58,13 @@ const BookingsTable = (props) => {
                           } else if(row.numberOfDiners === 1) {
                               rowTextColor = 'blue';
                           }
-                          return <TableRow key={row.name}>
+                          return <TableRow key={row.name} onClick={() => rowClickHandler({
+                              contactNumber: row.contactNumber,
+                              numberOfDiners: row.numberOfDiners,
+                              tableNumber: row.tableNumber,
+                              bookingTime: row.bookingTime,
+                              contactName: row.contactName,
+                          })}>
                               <TableCell component="th" scope="row">
                                   {row.contactName}
                               </TableCell>
