@@ -11,19 +11,27 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
-const BookingsTable = () => {
+const BookingsTable = (props) => {
     const classes = useStyles();
     const [tableBookingsData, setTableBookingsData] = useState([]);
 
     useEffect(() => {
+        let mounted = true;
        axios.get('http://localhost:3001/booking').then((response) => {
-           console.log('data returned is: ', response);
-          setTableBookingsData(response);
+          if(response.status === 200 && mounted) {
+              setTableBookingsData(response.data.bookings);
+          }
        });
-    });
+       return () => mounted = false;
+    }, []);
 
-    const buttonClickHandler = () => {
-        console.log('button clicked to create new booking ...');
+    const buttonClickHandler = () => props.history.push('/create-booking');
+
+    const rowClickHandler = (contactDetails) => {
+        props.history.push({
+            pathname: '/edit-booking',
+            state: contactDetails
+        });
     };
 
     return(
@@ -43,17 +51,29 @@ const BookingsTable = () => {
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                      {tableBookingsData.map((row) => (
-                          <TableRow key={row.name}>
+                      { tableBookingsData.length? tableBookingsData.map((row) => {
+                          let rowTextColor = 'black';
+                          if(row.numberOfDiners > 6){
+                              rowTextColor = 'red';
+                          } else if(row.numberOfDiners === 1) {
+                              rowTextColor = 'blue';
+                          }
+                          return <TableRow key={row.name} onClick={() => rowClickHandler({
+                              contactNumber: row.contactNumber,
+                              numberOfDiners: row.numberOfDiners,
+                              tableNumber: row.tableNumber,
+                              bookingTime: row.bookingTime,
+                              contactName: row.contactName,
+                          })}>
                               <TableCell component="th" scope="row">
                                   {row.contactName}
                               </TableCell>
-                              <TableCell align="right">{row.contactNumber}</TableCell>
-                              <TableCell align="right">{row.numberOfDiners}</TableCell>
-                              <TableCell align="right">{row.tableNumber}</TableCell>
-                              <TableCell align="right">{row.bookingTime}</TableCell>
-                          </TableRow>
-                      ))}
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.contactNumber}</TableCell>
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.numberOfDiners}</TableCell>
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.tableNumber}</TableCell>
+                              <TableCell align="right" style={{color: rowTextColor}}>{row.bookingTime}</TableCell>
+                          </TableRow>;
+                      }): null}
                   </TableBody>
               </Table>
           </TableContainer>
