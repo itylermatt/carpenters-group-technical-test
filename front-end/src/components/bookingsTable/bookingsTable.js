@@ -11,22 +11,19 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
-const BookingsTable = () => {
+const BookingsTable = (props) => {
     const classes = useStyles();
     const [tableBookingsData, setTableBookingsData] = useState([]);
 
     useEffect(() => {
        axios.get('http://localhost:3001/booking').then((response) => {
-           console.log('data returned is: ', response);
           if(response.status === 200) {
               setTableBookingsData(response.data.bookings);
           }
        });
     });
 
-    const buttonClickHandler = () => {
-        console.log('button clicked to create new booking ...');
-    };
+    const buttonClickHandler = () => props.history.push('/create-booking');
 
     return(
       <div className={'rootContainer'}>
