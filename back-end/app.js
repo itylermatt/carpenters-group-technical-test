@@ -7,7 +7,9 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-let bookingRouter = require('./routes/booking');
+const bookingRouter = require('./routes/booking');
+const createBookingRouter = require('./routes/createBooking');
+const editBookingRouter = require('./routes/editBooking');
 var app = express();
 
 // view engine setup
@@ -24,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/booking', bookingRouter);
+app.use('/create-booking', createBookingRouter);
+app.use('/update-booking', editBookingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
