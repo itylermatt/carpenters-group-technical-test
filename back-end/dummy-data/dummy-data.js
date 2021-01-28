@@ -3,6 +3,7 @@ const randomDate = require('./helper-functions').randomDateGenerator;
 
 let bookingsTempData = [
     {
+        bookingId: 0,
         contactName: 'John Doe',
         contactNumber: '02735636251',
         numberOfDiners: Math.random() * (10 - 1) + 1, // Math.random() * (max - min) + min === random number within a range
