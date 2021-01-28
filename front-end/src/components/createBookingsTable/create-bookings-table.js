@@ -24,6 +24,7 @@ const CreateBookingsTable = (props) => {
             setNumberOfPeople('');
             setTableNumber('');
             setBookingTime('');
+            props.history.push('/');
         }).catch(e => {
             console.log(e);
             setContactNumber('');
