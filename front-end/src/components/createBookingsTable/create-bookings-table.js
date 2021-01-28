@@ -1,6 +1,7 @@
 import {useState, Fragment, useEffect} from 'react';
 import {Paper, Button} from '@material-ui/core';
 import './createBookingsTable.css';
+import axios from "axios";
 
 const CreateBookingsTable = (props) => {
     const [contactName, setContactName] = useState('');
@@ -17,11 +18,20 @@ const CreateBookingsTable = (props) => {
             console.log('incomplete form');
             return;
         }
-        setContactNumber('');
-        setContactName('');
-        setNumberOfPeople('');
-        setTableNumber('');
-        setBookingTime('');
+        axios.post('http://localhost:3001', {contactNumber, contactName, numberOfPeople, tableNumber, bookingTime}).then(() =>{
+            setContactNumber('');
+            setContactName('');
+            setNumberOfPeople('');
+            setTableNumber('');
+            setBookingTime('');
+        }).catch(e => {
+            console.log(e);
+            setContactNumber('');
+            setContactName('');
+            setNumberOfPeople('');
+            setTableNumber('');
+            setBookingTime('');
+        });
     };
 
     return(

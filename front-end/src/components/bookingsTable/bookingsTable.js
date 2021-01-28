@@ -16,12 +16,14 @@ const BookingsTable = (props) => {
     const [tableBookingsData, setTableBookingsData] = useState([]);
 
     useEffect(() => {
+        let mounted = true;
        axios.get('http://localhost:3001/booking').then((response) => {
-          if(response.status === 200) {
+          if(response.status === 200 && mounted) {
               setTableBookingsData(response.data.bookings);
           }
        });
-    });
+       return () => mounted = false;
+    }, []);
 
     const buttonClickHandler = () => props.history.push('/create-booking');
 
