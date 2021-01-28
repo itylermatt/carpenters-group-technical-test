@@ -7,12 +7,21 @@ const CreateBookingsTable = (props) => {
     const [contactNumber, setContactNumber] = useState('');
     const [numberOfPeople, setNumberOfPeople] = useState('');
     const [tableNumber, setTableNumber] = useState('');
-    const [bookingTime, setBookingTime] = useState(null);
+    const [bookingTime, setBookingTime] = useState('');
 
     const onCancelButtonClick = () => props.history.push('/');
 
     const onFormSubmit = e => {
         e.preventDefault();
+        if(!contactName || !contactNumber || !numberOfPeople || !tableNumber || !bookingTime) {
+            console.log('incomplete form');
+            return;
+        }
+        setContactNumber('');
+        setContactName('');
+        setNumberOfPeople('');
+        setTableNumber('');
+        setBookingTime('');
     };
 
     return(
@@ -37,7 +46,7 @@ const CreateBookingsTable = (props) => {
                     </div>
                     <div className={'formDetails'}>
                         <label htmlFor={'booking'} > Booking Time </label>
-                        <input value={bookingTime} type="text" id={'booking'} className={'input'} placeholder={'Booking Time...'} onChange={(e) => setBookingTime(e.target.value)}/>
+                        <input value={bookingTime} type="date" id={'booking'} className={'input'} placeholder={'Booking Time...'} onChange={(e) => setBookingTime(e.target.value)}/>
                     </div>
                     <div className={'saveButton'}>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
