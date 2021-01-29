@@ -15,8 +15,10 @@ const CreateBookingsTable = (props) => {
     const onFormSubmit = e => {
         e.preventDefault();
         if(!contactName || !contactNumber || !numberOfDiners || !tableNumber || !bookingTime) {
+            alert('incomplete form, please try again');
             return;
         }
+
         axios.post('http://localhost:3001/create-booking', {contactNumber, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
@@ -56,7 +58,7 @@ const CreateBookingsTable = (props) => {
                     </div>
                     <div className={'formDetails'}>
                         <label htmlFor={'booking'} > Booking Time </label>
-                        <input value={bookingTime} type="date" id={'booking'} className={'input'} placeholder={'Booking Time...'} onChange={(e) => setBookingTime(e.target.value)}/>
+                        <input value={bookingTime} type="datetime-local" id={'booking'} className={'input'} placeholder={'Booking Time...'} onChange={(e) => setBookingTime(e.target.value)}/>
                     </div>
                     <div className={'saveButton'}>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
