@@ -5,12 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
 const bookingRouter = require('./routes/booking');
 const createBookingRouter = require('./routes/createBooking');
 const editBookingRouter = require('./routes/editBooking');
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +23,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/booking', bookingRouter);
 app.use('/create-booking', createBookingRouter);
 app.use('/update-booking', editBookingRouter);
