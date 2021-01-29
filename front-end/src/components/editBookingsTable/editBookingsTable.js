@@ -20,7 +20,7 @@ const EditBookingsTable = (props) => {
         setNumberOfDiners(props.location.state.numberOfDiners || '');
         setTableNumber(props.location.state.tableNumber || '');
         setBookingTime(props.location.state.bookingTime || '');
-        setBookingId(props.location.state.bookingId || '');
+        setBookingId(props.location.state.bookingId);
     }, [props])
 
     const onFormSubmit = e => {
@@ -29,6 +29,7 @@ const EditBookingsTable = (props) => {
             console.log('incomplete form');
             return;
         }
+        console.log('sending: ', contactNumber, contactName, bookingId);
         axios.post('http://localhost:3001/update-booking', {contactNumber, bookingId, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
