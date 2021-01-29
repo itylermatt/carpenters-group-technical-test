@@ -64,6 +64,7 @@ const BookingsTable = (props) => {
                               tableNumber: row.tableNumber,
                               bookingTime: row.bookingTime,
                               contactName: row.contactName,
+                              bookingId: row.bookingId
                           })}>
                               <TableCell component="th" scope="row">
                                   {row.contactName}

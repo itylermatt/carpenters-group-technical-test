@@ -9,6 +9,7 @@ const EditBookingsTable = (props) => {
     const [numberOfDiners, setNumberOfDiners] = useState('');
     const [tableNumber, setTableNumber] = useState('');
     const [bookingTime, setBookingTime] = useState('');
+    const [bookingId, setBookingId] = useState('');
 
     const onCancelButtonClick = () => props.history.push('/');
 
@@ -19,7 +20,8 @@ const EditBookingsTable = (props) => {
         setNumberOfDiners(props.location.state.numberOfDiners || '');
         setTableNumber(props.location.state.tableNumber || '');
         setBookingTime(props.location.state.bookingTime || '');
-    }, [])
+        setBookingId(props.location.state.bookingId || '');
+    }, [props])
 
     const onFormSubmit = e => {
         e.preventDefault();
@@ -27,12 +29,13 @@ const EditBookingsTable = (props) => {
             console.log('incomplete form');
             return;
         }
-        axios.post('http://localhost:3001/update-booking', {contactNumber, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
+        axios.post('http://localhost:3001/update-booking', {contactNumber, bookingId, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
             setNumberOfDiners('');
             setTableNumber('');
             setBookingTime('');
+            setBookingId('');
             props.history.push('/');
         }).catch(e => {
             console.log(e);
