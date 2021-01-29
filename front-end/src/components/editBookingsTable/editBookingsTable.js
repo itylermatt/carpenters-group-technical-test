@@ -24,10 +24,16 @@ const EditBookingsTable = (props) => {
 
     const onFormSubmit = e => {
         e.preventDefault();
+        console.log(typeof bookingTime);
         if(!contactName || !contactNumber || !numberOfDiners || !tableNumber || !bookingTime) {
-            console.log('incomplete form');
+            alert('incomplete form, please try again');
             return;
         }
+        if(isNaN(contactNumber) || isNaN(numberOfDiners)) {
+            alert('please check you have entered numbers where needed');
+            return;
+        }
+        // if(typeof bookingTime !== 'Date') {}
         axios.post('http://localhost:3001/update-booking', {contactNumber, bookingId, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
@@ -68,7 +74,7 @@ const EditBookingsTable = (props) => {
                     </div>
                     <div className={'formDetails'}>
                         <label htmlFor={'booking'} > Booking Time </label>
-                        <input value={bookingTime} type="date" id={'booking'} className={'input'} placeholder={'Booking Time...'} onChange={(e) => setBookingTime(e.target.value)}/>
+                        <input value={bookingTime} type="datetime-local" id={'booking'} className={'input'} placeholder={'Booking Time...'} onChange={(e) => setBookingTime(e.target.value)}/>
                     </div>
                     <div className={'saveButton'}>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>

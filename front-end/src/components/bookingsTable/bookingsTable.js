@@ -51,14 +51,14 @@ const BookingsTable = (props) => {
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                      { tableBookingsData.length? tableBookingsData.map((row) => {
+                      { tableBookingsData.length? tableBookingsData.map((row, index) => {
                           let rowTextColor = 'black';
                           if(+row.numberOfDiners > 6){
                               rowTextColor = 'red';
                           } else if(+row.numberOfDiners === 1) {
                               rowTextColor = 'blue';
                           }
-                          return <TableRow key={row.name} onClick={() => rowClickHandler({
+                          return <TableRow key={index} onClick={() => rowClickHandler({
                               contactNumber: row.contactNumber,
                               numberOfDiners: row.numberOfDiners,
                               tableNumber: row.tableNumber,
