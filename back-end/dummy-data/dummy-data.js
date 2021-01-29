@@ -1,5 +1,6 @@
 const randomDate = require('./helper-functions').randomDateGenerator;
 
+let bookingId = 0;
 
 let bookingsTempData = [
     {
@@ -146,4 +147,4 @@ let bookingsTempData = [
 
 ];
 
-module.exports = bookingsTempData;
+module.exports = {bookingsTempData, bookingId};
