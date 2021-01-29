@@ -53,9 +53,9 @@ const BookingsTable = (props) => {
                   <TableBody>
                       { tableBookingsData.length? tableBookingsData.map((row) => {
                           let rowTextColor = 'black';
-                          if(row.numberOfDiners > 6){
+                          if(+row.numberOfDiners > 6){
                               rowTextColor = 'red';
-                          } else if(row.numberOfDiners === 1) {
+                          } else if(+row.numberOfDiners === 1) {
                               rowTextColor = 'blue';
                           }
                           return <TableRow key={row.name} onClick={() => rowClickHandler({
@@ -64,6 +64,7 @@ const BookingsTable = (props) => {
                               tableNumber: row.tableNumber,
                               bookingTime: row.bookingTime,
                               contactName: row.contactName,
+                              bookingId: row.bookingId
                           })}>
                               <TableCell component="th" scope="row">
                                   {row.contactName}
