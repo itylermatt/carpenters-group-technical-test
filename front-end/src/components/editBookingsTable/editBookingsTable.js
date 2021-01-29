@@ -29,11 +29,6 @@ const EditBookingsTable = (props) => {
             alert('incomplete form, please try again');
             return;
         }
-        if(isNaN(contactNumber) || isNaN(numberOfDiners)) {
-            alert('please check you have entered numbers where needed');
-            return;
-        }
-        // if(typeof bookingTime !== 'Date') {}
         axios.post('http://localhost:3001/update-booking', {contactNumber, bookingId, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');

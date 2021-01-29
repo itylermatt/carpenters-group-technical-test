@@ -15,8 +15,10 @@ const CreateBookingsTable = (props) => {
     const onFormSubmit = e => {
         e.preventDefault();
         if(!contactName || !contactNumber || !numberOfDiners || !tableNumber || !bookingTime) {
+            alert('incomplete form, please try again');
             return;
         }
+
         axios.post('http://localhost:3001/create-booking', {contactNumber, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
