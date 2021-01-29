@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bookingsDummyData = require('../dummy-data/dummy-data');
+const bookingsDummyData = require('../dummy-data/dummy-data').bookingsTempData;
 const dateSort = require('../dummy-data/helper-functions').dateSort;
 
 /*Update Booking Route*/
