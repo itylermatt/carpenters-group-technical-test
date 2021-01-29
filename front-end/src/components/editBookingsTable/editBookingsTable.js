@@ -14,7 +14,6 @@ const EditBookingsTable = (props) => {
     const onCancelButtonClick = () => props.history.push('/');
 
     useEffect(()=>{
-        console.log('edit bookings props: ', props);
         setContactName(props.location.state.contactName || '');
         setContactNumber(props.location.state.contactNumber || '');
         setNumberOfDiners(props.location.state.numberOfDiners || '');
@@ -29,7 +28,6 @@ const EditBookingsTable = (props) => {
             console.log('incomplete form');
             return;
         }
-        console.log('sending: ', contactNumber, contactName, bookingId);
         axios.post('http://localhost:3001/update-booking', {contactNumber, bookingId, contactName, numberOfDiners, tableNumber, bookingTime}).then(() =>{
             setContactNumber('');
             setContactName('');
